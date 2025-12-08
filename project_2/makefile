@@ -1,0 +1,9 @@
+.PHONY: fmt vet run all
+fmt:
+	go fmt ./...
+vet: fmt
+	go vet ./...
+run: vet
+	./bookworm
+test: vet
+	go test ./...
