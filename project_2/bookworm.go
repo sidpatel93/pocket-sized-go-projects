@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"os"
 )
 
@@ -20,5 +21,10 @@ func loadBookworms(filePath string) ([]Bookworm, error) {
 		return nil, error
 	}
 	defer file.Close()
-	return nil, nil
+	var bookworms []Bookworm
+	error = json.NewDecoder(file).Decode(&bookworms)
+	if error != nil {
+		return nil, error
+	}
+	return bookworms, nil
 }

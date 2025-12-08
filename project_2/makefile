@@ -4,6 +4,6 @@ fmt:
 vet: fmt
 	go vet ./...
 run: vet
-	./bookworm
+	go run .
 test: vet
 	go test ./...
