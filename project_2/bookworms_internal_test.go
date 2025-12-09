@@ -2,6 +2,7 @@ package main
 
 import (
 	"path/filepath"
+	"reflect"
 	"testing"
 )
 
@@ -45,9 +46,13 @@ func TestLoadBookworms(t *testing.T) {
 				t.Fatalf("expected an error %s, got none", err.Error())
 
 			}
-			if !equalBookworms(t, got, tc.want) {
+			// We can use the reflect.DeepEqual function to compare the two slices. It is not recommended for production code, but fine for tests.
+			if !reflect.DeepEqual(got, tc.want) {
 				t.Fatalf("different result: got %v, expected %v", got, tc.want)
 			}
+			// if !equalBookworms(t, got, tc.want) {
+			// 	t.Fatalf("different result: got %v, expected %v", got, tc.want)
+			// }
 		})
 	}
 
