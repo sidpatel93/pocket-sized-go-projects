@@ -99,3 +99,23 @@ func equalBooks(t *testing.T, books, target []Book) bool {
 	// Everything is equal!
 	return true
 }
+
+func TestBookCount(t *testing.T) {
+	bookworms := []Bookworm{
+		{Name: "Fadi", Books: []Book{handmaidsTale, theBellJar}},
+		{Name: "Peggy", Books: []Book{oryxAndCrake, handmaidsTale, janeEyre}},
+	}
+
+	want := map[Book]uint{
+		handmaidsTale: 2,
+		theBellJar:    1,
+		oryxAndCrake:  1,
+		janeEyre:      1,
+	}
+
+	got := bookcount(bookworms)
+
+	if !reflect.DeepEqual(got, want) {
+		t.Fatalf("different result: got %v, expected %v", got, want)
+	}
+}
