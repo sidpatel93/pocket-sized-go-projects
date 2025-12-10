@@ -119,3 +119,34 @@ func TestBookCount(t *testing.T) {
 		t.Fatalf("different result: got %v, expected %v", got, want)
 	}
 }
+
+func TestFindCommonBooks(t *testing.T) {
+
+	tc := map[string]struct {
+		bookworms []Bookworm
+		want      []Book
+	}{
+		"common books exist": {
+			bookworms: []Bookworm{
+				{Name: "Fadi", Books: []Book{handmaidsTale, theBellJar}},
+				{Name: "Peggy", Books: []Book{oryxAndCrake, handmaidsTale, janeEyre}},
+			},
+			want: []Book{handmaidsTale},
+		},
+		"no common books": {
+			bookworms: []Bookworm{
+				{Name: "Fadi", Books: []Book{theBellJar}},
+				{Name: "Peggy", Books: []Book{oryxAndCrake, janeEyre}},
+			},
+			want: []Book{},
+		},
+	}
+	for name, tc := range tc {
+		t.Run(name, func(t *testing.T) {
+			got := findCommonBooks(tc.bookworms)
+			if !equalBooks(t, got, tc.want) {
+				t.Fatalf("different result: got %v, expected %v", got, tc.want)
+			}
+		})
+	}
+}
