@@ -12,5 +12,6 @@ func main() {
 			"failed to load bookworms: %s\n", err)
 		os.Exit(1)
 	}
-	fmt.Println(bookworms)
+	commonBooks := findCommonBooks(bookworms)
+	displayBooks(commonBooks)
 }
