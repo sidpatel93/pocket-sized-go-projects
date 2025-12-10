@@ -54,12 +54,7 @@ func bookcount(bookworms []Bookworm) map[Book]uint {
 
 // Sort books by author and then title
 func sortBooksByAuthor(books []Book) []Book {
-	sort.Slice(books, func(i, j int) bool {
-		if (books)[i].Author != (books)[j].Author {
-			return (books)[i].Author < (books)[j].Author
-		}
-		return (books)[i].Title < (books)[j].Title
-	})
+	sort.Sort(byAuthor(books))
 	return books
 }
 
