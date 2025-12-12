@@ -4,19 +4,8 @@ type Logger struct {
 	threshold Level
 }
 
-// Level represents the available logger levels.
-type Level byte
-
-// Available logger levels enum.
-const (
-	LevelDebug Level = iota
-	LevelInfo
-	LevelWarn
-	LevelError
-)
-
 func New(threshold Level) *Logger {
-	return &Logger {
+	return &Logger{
 		threshold: threshold,
 	}
 }
@@ -31,6 +20,6 @@ func (l *Logger) Infof(format string, args ...any) {
 	// implement me
 }
 
-func (l * Logger) Errorf(format string, args ...any) {
+func (l *Logger) Errorf(format string, args ...any) {
 
 }

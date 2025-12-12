@@ -6,7 +6,7 @@ import (
 )
 
 func ExampleLogger_Debugf() {
-    debugLogger := logger.New(logger.LevelDebug)
-    debugLogger.Debugf("Hello, %s", "world")
-    // Output: Hello, world
+	debugLogger := logger.New(logger.LevelDebug)
+	debugLogger.Debugf("Hello, %s", "world")
+	// Output: Hello, world
 }
