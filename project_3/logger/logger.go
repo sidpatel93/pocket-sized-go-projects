@@ -13,11 +13,15 @@ type Logger struct {
 }
 
 // New creates a new Logger with the given threshold level and output writer.
-func New(threshold Level, output io.Writer) *Logger {
-	return &Logger{
+func New(threshold Level, opts ...Option) *Logger {
+	logger := &Logger{
 		threshold: threshold,
-		output:    output,
+		output:    os.Stdout,
 	}
+	for _, configOptions := range opts {
+		configOptions(logger)
+	}
+	return logger
 }
 
 // Debugf formats and prints a message if the log level is debug or higher.

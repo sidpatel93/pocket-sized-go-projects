@@ -8,7 +8,7 @@ import (
 )
 
 func ExampleLogger_Debugf() {
-	debugLogger := logger.New(logger.LevelDebug, os.Stdout)
+	debugLogger := logger.New(logger.LevelDebug, logger.WithOutput(os.Stdout))
 	debugLogger.Debugf("Hello, %s", "world")
 	// Output: Hello, world
 }
