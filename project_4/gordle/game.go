@@ -41,5 +41,7 @@ func (g *Game) ask() []rune {
 }
 
 func (g *Game) Play() {
-
+	fmt.Printf("Welcome to the game of gordle !")
+	guess := g.ask()
+	fmt.Printf("Your guess is : %s\n", string(guess))
 }
