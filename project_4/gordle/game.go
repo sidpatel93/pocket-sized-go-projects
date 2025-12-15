@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"strings"
 )
 
 // Game represents a single instance of a Gordle game.
@@ -22,6 +23,12 @@ func (e *Game) validateWord(guess []rune) error {
 			solutionLength, len(guess), errInvalidWordLength)
 	}
 	return nil
+}
+
+// splitToUppercaseCharacters is a naive implementation to turn a string
+// into a list of characters.
+func splitToUppercaseCharacters(input string) []rune {
+	return []rune(strings.ToUpper(input))
 }
 
 // New creates and returns a new instance of a Gordle game.
