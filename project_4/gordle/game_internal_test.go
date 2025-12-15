@@ -1,6 +1,7 @@
 package gordle
 
 import (
+	"errors"
 	"slices"
 	"strings"
 	"testing"
@@ -35,6 +36,35 @@ func TestGameAsk(t *testing.T) {
 			got := gameInstance.ask()
 			if !slices.Equal(got, tc.want) {
 				t.Errorf("got %q, want %q", string(got), string(tc.want))
+			}
+		})
+	}
+}
+
+func TestGameValidateWord(t *testing.T) {
+	tt := map[string]struct {
+		word      []rune
+		expextErr error
+	}{
+		"valid length": {
+			word:      []rune("WORLD"),
+			expextErr: nil,
+		},
+		"invalid length - too short": {
+			word:      []rune("HEY"),
+			expextErr: errInvalidWordLength,
+		},
+		"invalid length - too long": {
+			word:      []rune("GORDLE"),
+			expextErr: errInvalidWordLength,
+		},
+	}
+	for name, tc := range tt {
+		t.Run(name, func(t *testing.T) {
+			g := New(nil)
+			err := g.validateWord(tc.word)
+			if !errors.Is(err, tc.expextErr) {
+				t.Errorf("%c, expected %q but got %q", tc.word, tc.expextErr, err)
 			}
 		})
 	}
