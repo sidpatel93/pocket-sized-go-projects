@@ -1,6 +1,7 @@
 package gordle
 
 import (
+	"slices"
 	"strings"
 	"testing"
 )
@@ -32,7 +33,7 @@ func TestGameAsk(t *testing.T) {
 			gameInstance := New(strings.NewReader(tc.input))
 
 			got := gameInstance.ask()
-			if string(got) != string(tc.want) {
+			if !slices.Equal(got, tc.want) {
 				t.Errorf("got %q, want %q", string(got), string(tc.want))
 			}
 		})
