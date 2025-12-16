@@ -5,12 +5,15 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"slices"
 	"strings"
 )
 
 // Game represents a single instance of a Gordle game.
 type Game struct {
-	reader bufio.Reader
+	reader      bufio.Reader
+	solution    []rune
+	maxAttempts int
 }
 
 const solutionLength = 5
@@ -32,9 +35,11 @@ func splitToUppercaseCharacters(input string) []rune {
 }
 
 // New creates and returns a new instance of a Gordle game.
-func New(playerInput io.Reader) *Game {
+func New(playerInput io.Reader, solution string, maxAttempts int) *Game {
 	g := &Game{
-		reader: *bufio.NewReader(playerInput),
+		reader:      *bufio.NewReader(playerInput),
+		solution:    splitToUppercaseCharacters(solution),
+		maxAttempts: maxAttempts,
 	}
 	return g
 }
@@ -59,6 +64,12 @@ func (g *Game) ask() []rune {
 
 func (g *Game) Play() {
 	fmt.Printf("Welcome to the game of gordle !")
-	guess := g.ask()
-	fmt.Printf("Your guess is : %s\n", string(guess))
+	for currentGuess := 1; currentGuess <= g.maxAttempts; currentGuess++ {
+		fmt.Printf("Attempt %d of %d\n", currentGuess, g.maxAttempts)
+		guess := g.ask()
+		if slices.Equal(guess, g.solution) {
+			fmt.Printf("Congratulations! You've guessed the correct word: %s\n", string(g.solution))
+			return
+		}
+	}
 }

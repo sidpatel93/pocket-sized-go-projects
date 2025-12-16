@@ -7,6 +7,6 @@ import (
 )
 
 func main() {
-	gordleGame := gordle.New(os.Stdin)
+	gordleGame := gordle.New(os.Stdin, "HELLO", 5)
 	gordleGame.Play()
 }
