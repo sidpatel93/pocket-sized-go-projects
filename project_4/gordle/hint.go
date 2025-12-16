@@ -1,6 +1,12 @@
 package gordle
 
+import "strings"
+
+// hint represents the status of a character in a guess
 type hint byte
+
+// feedback is the list of hints for the given word
+type feedback []hint
 
 const (
 	absentCharacter hint = iota
@@ -21,4 +27,12 @@ func (h hint) String() string {
 		// This should never happen.
 		return "💔" // red broken heart
 	}
+}
+
+func (f feedback) String() string {
+	result := strings.Builder{}
+	for _, h := range f {
+		result.WriteString(h.String())
+	}
+	return result.String()
 }
