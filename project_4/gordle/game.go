@@ -16,14 +16,12 @@ type Game struct {
 	maxAttempts int
 }
 
-const solutionLength = 5
-
 var errInvalidWordLength = fmt.Errorf("input length does not match solution length")
 
 func (e *Game) validateWord(guess []rune) error {
-	if len(guess) != solutionLength {
+	if len(guess) != len(e.solution) {
 		return fmt.Errorf("expected %d, got %d, %w",
-			solutionLength, len(guess), errInvalidWordLength)
+			len(e.solution), len(guess), errInvalidWordLength)
 	}
 	return nil
 }
@@ -46,7 +44,7 @@ func New(playerInput io.Reader, solution string, maxAttempts int) *Game {
 
 // ask reader input until a valid suggestion is made
 func (g *Game) ask() []rune {
-	fmt.Printf("Enter a %d-character guess:\n", solutionLength)
+	fmt.Printf("Enter a %d-character guess:\n", len(g.solution))
 	for {
 		input, _, err := g.reader.ReadLine()
 		if err != nil {
