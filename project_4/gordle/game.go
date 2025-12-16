@@ -55,7 +55,7 @@ func (g *Game) ask() []rune {
 		if err := g.validateWord(guess); err != nil {
 			_, _ = fmt.Fprintf(os.Stderr, "Your attempt is invalid with Gordle's solution: %s.\n", err.Error())
 		} else {
-			return guess
+			return splitToUppercaseCharacters(string(guess))
 		}
 	}
 }
