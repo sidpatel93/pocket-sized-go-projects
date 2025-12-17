@@ -65,6 +65,8 @@ func (g *Game) Play() {
 	for currentGuess := 1; currentGuess <= g.maxAttempts; currentGuess++ {
 		fmt.Printf("Attempt %d of %d\n", currentGuess, g.maxAttempts)
 		guess := g.ask()
+		feedback := computeFeedback(guess, g.solution)
+		fmt.Printf("Feedback: %s\n", feedback.String())
 		if slices.Equal(guess, g.solution) {
 			fmt.Printf("Congratulations! You've guessed the correct word: %s\n", string(g.solution))
 			return
