@@ -97,14 +97,13 @@ func computeFeedback(guess, solution []rune) feedback {
 	// look for letters in the wrong position
 	for posInGuess, character := range guess {
 		if result[posInGuess] != absentCharacter {
-			// The character has already been marked, ignore it.
+			// The character has already been marked green, ignore it.
 			continue
 		}
 
 		for posInSolution, target := range solution {
 			if used[posInSolution] {
-				// The letter of the solution is already assigned to a letter of the guess.
-				// Skip to the next letter of the solution.
+				// The letter of the solution is already assigned to a letter of the guess. Skip to the next letter of the solution. This is to prevent double counting.
 				continue
 			}
 
