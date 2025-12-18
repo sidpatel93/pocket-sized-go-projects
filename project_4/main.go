@@ -1,7 +1,7 @@
 package main
 
 import (
-	"bufio"
+	// "bufio"
 	"os"
 
 	"github.com/sidpatel93/pocket-sized-go-projects/project_4/gordle"
@@ -13,7 +13,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	gordleGame, err := gordle.New(bufio.NewReader(os.Stdin), corpusData, 5)
+	gordleGame, err := gordle.New(os.Stdin, corpusData, 5)
 	if err != nil {
 		panic(err)
 	}
