@@ -2,8 +2,10 @@ package corpus_test
 
 import (
 	"errors"
-	"github.com/sidpatel93/pocket-sized-go-projects/project_4/gordle/corpus"
+	"slices"
 	"testing"
+
+	"github.com/sidpatel93/pocket-sized-go-projects/project_4/gordle/corpus"
 )
 
 func TestReadCorpus(t *testing.T) {
@@ -36,4 +38,14 @@ func TestReadCorpus(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestPickWord(t *testing.T) {
+	corpusData := []string{"apple", "banana", "cherry", "date", "elderberry"}
+
+	word := corpus.PickWord(corpusData)
+	if !slices.Contains(corpusData, word) {
+		t.Errorf("picked word %s not in corpus", word)
+	}
+
 }

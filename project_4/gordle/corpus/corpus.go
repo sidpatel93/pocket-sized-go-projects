@@ -1,6 +1,7 @@
 package corpus
 
 import (
+	"math/rand"
 	"os"
 	"strings"
 )
@@ -15,4 +16,11 @@ func ReadCorpus(path string) ([]string, error) {
 	}
 	words := strings.Fields(string(data))
 	return words, nil
+}
+
+// pickWord returns a random word from the corpus
+func PickWord(corpus []string) string {
+	index := rand.Intn(len(corpus))
+
+	return corpus[index]
 }
