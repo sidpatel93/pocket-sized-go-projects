@@ -31,7 +31,7 @@ func TestGameAsk(t *testing.T) {
 	}
 	for name, tc := range tt {
 		t.Run(name, func(t *testing.T) {
-			gameInstance := New(strings.NewReader(tc.input), "", 0)
+			gameInstance, _ := New(strings.NewReader(tc.input), nil, 0)
 
 			got := gameInstance.ask()
 			if !slices.Equal(got, tc.want) {
@@ -61,7 +61,7 @@ func TestGameValidateWord(t *testing.T) {
 	}
 	for name, tc := range tt {
 		t.Run(name, func(t *testing.T) {
-			g := New(nil, "", 0)
+			g, _ := New(nil, nil, 0)
 			err := g.validateWord(tc.word)
 			if !errors.Is(err, tc.expextErr) {
 				t.Errorf("%c, expected %q but got %q", tc.word, tc.expextErr, err)

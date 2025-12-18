@@ -7,6 +7,8 @@ import (
 	"os"
 	"slices"
 	"strings"
+
+	"github.com/sidpatel93/pocket-sized-go-projects/project_4/gordle/corpus"
 )
 
 // Game represents a single instance of a Gordle game.
@@ -33,13 +35,17 @@ func splitToUppercaseCharacters(input string) []rune {
 }
 
 // New creates and returns a new instance of a Gordle game.
-func New(playerInput io.Reader, solution string, maxAttempts int) *Game {
+func New(playerInput io.Reader, corpusData []string, maxAttempts int) (*Game, error) {
+	if len(corpusData) == 0 {
+		return nil, corpus.ErrCorpusIsEmpty
+	}
+	solution := corpus.PickWord(corpusData)
 	g := &Game{
 		reader:      *bufio.NewReader(playerInput),
 		solution:    splitToUppercaseCharacters(solution),
 		maxAttempts: maxAttempts,
 	}
-	return g
+	return g, nil
 }
 
 // ask reader input until a valid suggestion is made
