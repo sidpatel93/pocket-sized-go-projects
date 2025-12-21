@@ -16,21 +16,21 @@ type Decimal struct {
 	precision byte
 }
 
+const maxDecimal = 1e12
+
 func ParseDecimmal(s string) (Decimal, error) {
 	// split string on the decimal point
-	before, after, found := strings.Cut(s, ".")
-	var subunits int64
-	if !found {
-		// parse before as integer
-		subunits, _ = strconv.ParseInt(before, 10, 64)
-	}
-	subunits, err := strconv.ParseInt(before+after, 10, 64)
+	before, after, _ := strings.Cut(s, ".")
+	subunit, err := strconv.ParseInt(before+after, 10, 64)
 	if err != nil {
-		return Decimal{}, err
+		return Decimal{}, ErrInvalidDecimal
+	}
+	if subunit > maxDecimal {
+		return Decimal{}, ErrTooLarge
 	}
 	precision := byte(len(after))
 	return Decimal{
-		subunits:  subunits,
+		subunits:  subunit,
 		precision: precision,
 	}, nil
 }
